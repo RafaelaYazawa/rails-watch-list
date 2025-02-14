@@ -2,11 +2,12 @@ class BookmarksController < ApplicationController
   def new
     @list = List.find(params[:list_id])
     @bookmark = Bookmark.new
-    @movies = Movie.where.not(id: @movie.bookmarks).order(title: :asc)
+    # @movies = Movie.where.not(id: @movie.bookmarks).order(title: :asc)
+    @movies = Movie.all
   end
 
   def create
-    @lists = List.find(params[:list_id])
+    @list = List.find(params[:list_id])
     @bookmark = Bookmark.new(bookmark_params)
     @bookmark.list = @list
     if @bookmark.save
@@ -19,6 +20,6 @@ class BookmarksController < ApplicationController
   private
 
   def bookmark_params
-    params.require(:bookmark).permit(:comment, :movie_id)
+    params.require(:bookmark).permit(:comment, :movie)
   end
 end

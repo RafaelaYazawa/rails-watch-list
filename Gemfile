@@ -60,12 +60,13 @@ group :development do
   # gem "spring"
 end
 
-gem "autoprefixer-rails"
-gem "bootstrap", "~> 5.2"
-gem "font-awesome-sass", "~> 6.1"
+gem 'autoprefixer-rails'
+gem 'bootstrap', '~> 5.2'
+gem 'cloudinary', '~> 1.16.0'
+gem 'dotenv-rails', groups: [:development, :test]
+gem 'font-awesome-sass', '~> 6.1'
 gem 'ostruct'
-gem "sassc-rails"
-gem "simple_form"
+gem 'sassc-rails'
+gem 'simple_form'
 gem 'rspec-rails', group: [ :test ]
 gem 'rails-controller-testing', group: [ :test ]
-gem 'dotenv-rails', groups: [:development, :test]
