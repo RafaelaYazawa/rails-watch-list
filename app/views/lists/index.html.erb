@@ -3,11 +3,11 @@
   <%= link_to '+', new_list_path, class: 'text-decoration-none text-reset' %>
   <div class="card">
     <% @lists.each do |list| %>
-      <%= link_to list_path(list), class: 'text' do %>
+      <%= link_to list_path(list) do %>
         <div class="card-body border">
           <%= list.name %>
         </div>
-        <% end %>
+      <% end %>
     <% end %>
   </div>
 </div>
