@@ -2,8 +2,7 @@ class BookmarksController < ApplicationController
   def new
     @list = List.find(params[:list_id])
     @bookmark = Bookmark.new
-    # @movies = Movie.where.not(id: @movie.bookmarks).order(title: :asc)
-    @movies = Movie.all
+    @movies = Movie.all.where.not(id: @list.movies).order(title: :asc)
   end
 
   def create
@@ -11,15 +10,21 @@ class BookmarksController < ApplicationController
     @bookmark = Bookmark.new(bookmark_params)
     @bookmark.list = @list
     if @bookmark.save
-      redirect_to list_path
+      redirect_to list_path(@bookmark.list)
     else
       render 'new', status: :unprocessable_entity
     end
   end
 
+  def destroy
+    @bookmark = Bookmark.find(params[:id])
+    @bookmark.destroy
+    redirect_to list_path(@bookmark), status: :see_other
+  end
+
   private
 
   def bookmark_params
-    params.require(:bookmark).permit(:comment, :movie)
+    params.require(:bookmark).permit(:comment, :movie_id)
   end
 end
