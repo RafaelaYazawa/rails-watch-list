@@ -1,30 +1,33 @@
 <div class="container my-3">
   <div class="d-flex justify-content-between">
     <h2><%= @list.name %></h2>
-    <%= link_to 'Delete', list_path, data: {turbo_method: :delete, turbo_confirm: "Remove #{@list.name}?" }, class: 'btn btn-danger' %>
+    <%= link_to 'Delete', list_path, data: {turbo_method: :delete, turbo_confirm: "Remove #{@list.name}?" }, class: 'btn btn-danger mb-2' %>
   </div>
   <%= link_to 'Back', lists_path, class: 'btn btn-secondary me-3' %>
   <%= link_to '+ Add movie', new_list_bookmark_path(@list),  class: 'btn btn-primary' %>
 
-  <% @list.bookmarks.each do |bookmark| %>
-    <div class="card-product my-3">
-      <%= image_tag bookmark.movie.poster_url %>
-      <div class="ms-4">
-        <h3><%= bookmark.movie.title %></h3>
-        <p><%= bookmark.movie.overview %></p>
+  <div class="container my-3">
+    <% @list.bookmarks.each do |bookmark| %>
+      <div class="card-product my-3">
+        <%= image_tag bookmark.movie.poster_url %>
+        <div class="ms-4">
+          <h3><%= bookmark.movie.title %></h3>
+          <p><%= bookmark.movie.overview %></p>
+        </div>
       </div>
-    </div>
 
-
-    </div>
-
-    <div class="container ">
-      <h3>Reviews</h3>
-      <%=link_to '⭐️' * bookmark.movie.rating %>
-      <%= bookmark.comment %>
-      <%= link_to bookmark_path(bookmark), data: {turbo_method: :delete, turbo_confirm: "Remove #{bookmark.movie.title}?" }, class: 'btn btn-danger'  do %>
-        <i class="fa-solid fa-trash"></i>
-      <% end %>
-    </div>
-  <% end %>
+      <div class="container" data-controller="review">
+        <h3 data-action="click->review#display">Reviews</h3>
+        <div class="d-none" data-review-target="review">
+          <div>
+           <%=link_to '⭐️' * bookmark.movie.rating %>
+          </div>
+          <%= bookmark.comment %>
+          <%= link_to bookmark_path(bookmark), data: {turbo_method: :delete, turbo_confirm: "Remove #{bookmark.movie.title}?" }, class: 'btn btn-danger rounded-5 ms-2 '  do %>
+            <i class="fa-solid fa-trash"></i>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+  </div>
 </div>

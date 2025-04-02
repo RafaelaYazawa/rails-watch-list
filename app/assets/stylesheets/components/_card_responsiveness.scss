@@ -1,0 +1,29 @@
+.card-responsive {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+
+.grid-item {
+  width: 100%;
+  text-align: center;
+}
+
+@media (max-width: 768px) {
+  .card-responsive {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .grid-item {
+    width: 100%;
+  }
+}
+
+/* Responsive: 1 column for small screens */
+@media (max-width: 480px) {
+  .card-responsive {
+    grid-template-columns: 1fr;
+  }
+  .grid-item {
+    width: 100%;
+  }
+}
