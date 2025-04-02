@@ -3,31 +3,46 @@
     <h2><%= @list.name %></h2>
     <%= link_to 'Delete', list_path, data: {turbo_method: :delete, turbo_confirm: "Remove #{@list.name}?" }, class: 'btn btn-danger mb-2' %>
   </div>
-  <%= link_to 'Back', lists_path, class: 'btn btn-secondary me-3' %>
-  <%= link_to '+ Add movie', new_list_bookmark_path(@list),  class: 'btn btn-primary' %>
+  <% if @list.movies.any? %>
+    <%= render "shared/spoiler_alert", class: 'mb-3' %>  
+    <%= link_to 'Back', lists_path, class: 'btn btn-secondary me-3' %>
+    <%= link_to '+ Add movie', new_list_bookmark_path(@list),  class: 'btn btn-primary' %>
+  <% else %>
+    <%= link_to 'Back', lists_path, class: 'btn btn-secondary me-3' %>
+    <%= link_to '+ Add movie', new_list_bookmark_path(@list),  class: 'btn btn-primary' %>
+  <% end %>
 
   <div class="container my-3">
-    <% @list.bookmarks.each do |bookmark| %>
-      <div class="card-product my-3">
-        <%= image_tag bookmark.movie.poster_url %>
-        <div class="ms-4">
-          <h3><%= bookmark.movie.title %></h3>
-          <p><%= bookmark.movie.overview %></p>
-        </div>
-      </div>
-
-      <div class="container" data-controller="review">
-        <h3 data-action="click->review#display">Reviews</h3>
-        <div class="d-none" data-review-target="review">
-          <div>
-           <%=link_to '⭐️' * bookmark.movie.rating %>
+    <% if @list.bookmarks.any? %>
+      <% @list.bookmarks.each do |bookmark| %>
+        <div class="card-product my-3">
+          <%= image_tag bookmark.movie.poster_url %>
+          <div class="ms-4">
+            <h3><%= bookmark.movie.title %></h3>
+            <p><%= bookmark.movie.overview %></p>
           </div>
-          <%= bookmark.comment %>
-          <%= link_to bookmark_path(bookmark), data: {turbo_method: :delete, turbo_confirm: "Remove #{bookmark.movie.title}?" }, class: 'btn btn-danger rounded-5 ms-2 '  do %>
-            <i class="fa-solid fa-trash"></i>
-          <% end %>
         </div>
-      </div>
+
+        <div class="container" data-controller="review">
+          <div class="d-flex">
+            <h3 data-action="click->review#display">Reviews</h3>
+            <p><sup>click to view</sup></p>
+          </div>
+          <div class="d-none" data-review-target="review">
+            <div >
+            <%=link_to '⭐️' * bookmark.movie.rating %>
+            </div>
+            <div class="d-flex align-items-center gap-3">
+              <%= bookmark.comment %>
+              <%= link_to bookmark_path(bookmark), data: {turbo_method: :delete, turbo_confirm: "Remove #{bookmark.movie.title}?" }, class: 'btn btn-danger rounded-5'  do %>
+                <i class="fa-solid fa-trash"></i>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    <% else %>
+      <h4>Nothing to see here for now...</h4>
     <% end %>
   </div>
 </div>
