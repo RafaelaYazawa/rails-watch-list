@@ -1,7 +1,20 @@
-.banner{
+.banner {
   background-size: cover;
   background-position: center;
   width: 100vw;
   height: 600px;
   transition-duration: 3s;
+}
+
+@media (max-width: 768px) {
+  .banner {
+    height: 70vh;
+  }
+}
+
+/* Responsive: 1 column for small screens */
+@media (max-width: 480px) {
+  .banner {
+    height: 45vh;
+  }
 }
