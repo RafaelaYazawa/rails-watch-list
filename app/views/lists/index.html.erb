@@ -2,7 +2,7 @@
   <div class="container-fluid">
     <a class="navbar-brand fw-bold">MOVIEFLIX</a>
     <form class="d-flex" role="search">
-      <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+      <input class="form-control me-2" type="search" placeholder="Search" name="query" aria-label="Searc lists..." value="<%= params[:query] %>">
       <button class="btn btn-outline-success" type="submit">Search</button>
     </form>
   </div>
@@ -25,7 +25,7 @@
   </div>
 </div>
 
-<div class="container mt-5">
+<div class="container my-5 p-3x">
   <div class="d-flex justify-content-between">
     <h2 class="text-white mb-4">Genres</h2>
     <%= link_to new_list_path, class: 'text-decoration-none text-reset  align-content-center' do %>
@@ -35,18 +35,22 @@
 
   <div class="container">
     <div class="card-responsive">
-      <% @lists.each do |list| %>
-        <div class="grid-item">
-          <%= link_to list_path(list), class: 'text-decoration-none' do %>
-            <div class="card rounded">
-              <div class="card-category" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(<%= list.photo.attached? ? cl_image_path(list.photo.key) : image_path('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTPQDYau3Hs4-xw1i8jVSUY4BlF4FLmg8lQqg&usqp=CAU') %>)">
-                <h3 class="fw-boldr">
-                  <%= list.name %>
-                </h3>
+      <% if @lists.empty? || params[:query].present? %>
+        <p> Nothing to see here for now...</p>        
+      <% else %>
+        <% @lists.each do |list| %>
+          <div class="grid-item">
+            <%= link_to list_path(list), class: 'text-decoration-none' do %>
+              <div class="card rounded">
+                <div class="card-category" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(<%= list.photo.attached? ? cl_image_path(list.photo.key) : image_path('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTPQDYau3Hs4-xw1i8jVSUY4BlF4FLmg8lQqg&usqp=CAU') %>)">
+                  <h3 class="fw-boldr">
+                    <%= list.name %>
+                  </h3>
+                </div>
               </div>
-            </div>
-          <% end %>
-        </div>
+            <% end %>
+          </div>
+        <% end %>
       <% end %>
     </div>
   </div>
