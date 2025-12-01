@@ -1,4 +1,4 @@
-<div class="container my-3">
+<div class="container my-5">
   <div class="d-flex justify-content-between">
     <h2><%= @list.name %></h2>
     <%= link_to 'Delete', list_path, data: {turbo_method: :delete, turbo_confirm: "Remove #{@list.name}?" }, class: 'btn btn-danger mb-2' %>
@@ -13,9 +13,11 @@
   <% end %>
 
   <div class="container my-3">
-    <% if @list.bookmarks.any? %>
+    <% if @list.bookmarks.empty? %>
+      <h4 class="py-3"> No movies were added yet...</h4>
+    <% elseif @list.bookmarks.any? %>
       <% @list.bookmarks.each do |bookmark| %>
-        <div class="card-product my-3">
+        <div class="card-product my-4 rounded-2">
           <%= image_tag bookmark.movie.poster_url %>
           <div class="ms-4">
             <h3><%= bookmark.movie.title %></h3>
@@ -24,25 +26,18 @@
         </div>
 
         <div class="container" data-controller="review">
-          <div class="d-flex">
-            <h3 data-action="click->review#display">Reviews</h3>
-            <p><sup>click to view</sup></p>
-          </div>
+          <h3 data-action="click->review#display">Reviews</h3>
           <div class="d-none" data-review-target="review">
-            <div >
+            <div>
             <%=link_to '⭐️' * bookmark.movie.rating %>
             </div>
-            <div class="d-flex align-items-center gap-3">
-              <%= bookmark.comment %>
-              <%= link_to bookmark_path(bookmark), data: {turbo_method: :delete, turbo_confirm: "Remove #{bookmark.movie.title}?" }, class: 'btn btn-danger rounded-5'  do %>
-                <i class="fa-solid fa-trash"></i>
-              <% end %>
-            </div>
+            <%= bookmark.comment %>
+            <%= link_to bookmark_path(bookmark), data: {turbo_method: :delete, turbo_confirm: "Remove #{bookmark.movie.title}?" }, class: 'btn btn-danger rounded-5 ms-2 '  do %>
+              <i class="fa-solid fa-trash"></i>
+            <% end %>
           </div>
         </div>
       <% end %>
-    <% else %>
-      <h4>Nothing to see here for now...</h4>
     <% end %>
   </div>
 </div>
