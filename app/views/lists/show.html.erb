@@ -15,7 +15,7 @@
   <div class="container my-3">
     <% if @list.bookmarks.empty? %>
       <h4 class="py-3"> No movies were added yet...</h4>
-    <% elseif @list.bookmarks.any? %>
+    <% elsif @list.bookmarks.any? %>
       <% @list.bookmarks.each do |bookmark| %>
         <div class="card-product my-4 rounded-2">
           <%= image_tag bookmark.movie.poster_url %>
