@@ -35,7 +35,7 @@
 
   <div class="container">
     <div class="card-responsive">
-      <% if @lists.empty? || params[:query].present? %>
+      <% if @lists.empty? %>
         <p> Nothing to see here for now...</p>        
       <% else %>
         <% @lists.each do |list| %>
