@@ -1,24 +1,12 @@
-# README
+MovieFlix
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Watch List — A simple Rails app to create and manage movie lists (many-to-many relationship between movies and lists through bookmarks). This project was built as a Le Wagon exercise and implements models, validations, routes, controllers, views, seeds, and front-end assets (Bootstrap + Simple Form).
 
-Things you may want to cover:
+Movies are seeded in the database. The app does not provide creation forms for movies (they are read-only from the UI perspective).
 
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+💻 Built with
+- Ruby on Rails (>= 7.x)
+- PostgreSQL
+- Bootstrap 5
+- Simple Form
+- RSpec (for model specs provided by Le Wagon)
